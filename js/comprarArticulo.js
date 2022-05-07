@@ -54,6 +54,7 @@ function buscar() {
         respuesta.map((e) => { console.log(e) });
       } else {
         swal("Respuesta", `${respuesta}`, "info");
+        console.log(respuesta);
       }
     }
   }).catch((error) => {
