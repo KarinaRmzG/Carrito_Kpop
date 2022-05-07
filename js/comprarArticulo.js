@@ -78,7 +78,7 @@ function agregaArticulos(articulos) {
                   <input id="cantidadOld" type="hidden" value=${e.cantidad} />
                   <input id="cantidad" type="number" value="1" step="1" min="1" class="form-control" placeholder="Cantidad a comprar"
                   aria-label="Inserte la Cantidad a comprar" aria-describedby="button-addon2">
-                  <button class="btn btn-primary button" id="añadir">Añadir a Carrito</button>
+                  <button class="btn btn-primary button" id="añadir"> Añadir a Carrito</button>
                 </form>
               </div>
             </div>

@@ -19,7 +19,7 @@
   </script>
 </head>
 
-<body>
+<body onload="buscaCarrito()">
   <header>
     <div class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
@@ -76,8 +76,8 @@
         </svg>
         Eliminar todo el carrito
       </button>
-      <div id="">
-        <h4 style="text-align: center;">Total: Cargando</h4>
+      <div id="TotalCarrito">
+        <h4 style="text-align: center;" class="animate__animated animate__fadeInDown">Total: Cargando ...</h4>
       </div>
     </div>
   </div>
