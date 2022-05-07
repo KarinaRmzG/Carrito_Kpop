@@ -89,7 +89,76 @@ function agregaArticulos(articulos) {
   div.innerHTML = listaArti;
 }
 
-function handleShop(event){
+function handleShop(event) {
   event.preventDefault();
-  swal("registrar ...");
+  const cantidad = parseInt(event.target.cantidad.value);
+  const descripcion = event.target.descripcion.value;
+  const maxCantidad = parseInt(event.target.cantidadOld.value);
+  if (cantidad > maxCantidad) {
+    swal("Atención", "No hay tantas piezas mamon", "info");
+  } else {
+    const data = {
+      descripcion: descripcion,
+      cantidad: cantidad,
+    };
+    let body = "";
+    let name;
+    let pairs = [];
+    try {
+      for (name in data) {
+        let value = data[name];
+        if (typeof value !== "string") value = JSON.stringify(value);
+        pairs.push(
+          name +
+          "=" +
+          encodeURI(value)
+            .replace(/=/g, "%3D")
+            .replace(/&/g, "%26")
+            .replace(/%20/g, "+")
+        );
+      }
+    } catch (error) {
+      alert("Error: " + error.message);
+    }
+    body = pairs.join("&");
+    let encabezados = new Headers();
+    encabezados.set('Content-Type', 'application/x-www-form-urlencoded');
+    swal({
+      title: "¿Esta seguro?",
+      text: `Se añadira ${cantidad} pieza(s) del articulo ${descripcion} `,
+      icon: "warning",
+      buttons: {
+        defeat: {
+          text: "Si",
+          closeModal: false,
+        },
+        cancel: 'No',
+      },
+      dangerMode: true,
+    }).then((respuesta) => { //Respuesta del boton
+      if (respuesta == "defeat") {
+        return fetch("/Servicio/rest/ws/alta_carrito", {
+          method: 'POST',
+          headers: encabezados,
+          body: body,
+        }).then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+          return response.json();
+        });
+      }
+      if (respuesta === null) return new Response("null");
+    }).then((respuesta) => {
+      if (respuesta != null) {
+        swal("Respuesta", `${respuesta}`, "info");
+        setTimeout(() => {
+          window.location.href = "/carrito.html";
+        }, 1000);
+      }
+    }).catch((error) => {
+      swal("Error", `${error}`, "error");
+      console.log(error);
+    });
+  }
 }
