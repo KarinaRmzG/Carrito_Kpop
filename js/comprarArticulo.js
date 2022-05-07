@@ -90,5 +90,6 @@ function agregaArticulos(articulos) {
 }
 
 function handleShop(event){
-  
+  event.preventDefault();
+  swal("registrar ...");
 }
