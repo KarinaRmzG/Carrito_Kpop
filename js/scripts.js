@@ -109,8 +109,8 @@ function registraArticulo(informacion) {
       if (respuesta == 'ok') {
         swal("Respuesta", `${respuesta}`, "success");
         setTimeout(() => {
-          window.location.href = "/ComprarArticulo.html";
-        }, 2500);
+          window.location.href = "/compraArticulos.html";
+        }, 1000);
       } else {
         swal("Respuesta", `${respuesta}`, "info");
       }
