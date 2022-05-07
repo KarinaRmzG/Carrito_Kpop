@@ -116,3 +116,44 @@ function handleShop(event) {
     console.log(error);
   });
 }
+
+function eliminaCarrito() {
+  swal({
+    title: "¿Esta seguro?",
+    text: "Se eliminara TODO el carrito",
+    icon: "warning",
+    buttons: {
+      defeat: {
+        text: "Si",
+        closeModal: false,
+      },
+      cancel: 'No',
+    },
+    dangerMode: true,
+  }).then((respuesta) => { //Respuesta del boton
+    if (respuesta == "defeat") {
+      return fetch(`/Servicio/rest/ws/elimina_carrito_all`,
+        {
+          method: 'POST',
+        }).then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText)
+          }
+          return response.json();
+        }).catch(error => {
+          swal(`Request failed`, `${error}`, `error`);
+        })
+    }
+    if (respuesta === null) return new Response("null");
+  }).then((respuesta) => {
+    if (respuesta != null) {
+      swal("Respuesta", `${respuesta}`, "info");
+      setTimeout(() => {
+        window.location.href = "/compraArticulos.html";
+      }, 1000);
+    }
+  }).catch((error) => {
+    swal("Error", `${error}`, "error");
+    console.log(error);
+  });
+}
