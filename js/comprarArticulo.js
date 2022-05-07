@@ -1,5 +1,4 @@
-function buscar(event) {
-  event.preventDefault();//Evitamos que el formulario se propague
+function buscar() {
   let busqueda = document.getElementById("busca").value;
   swal(busqueda);
   let informacion = {
